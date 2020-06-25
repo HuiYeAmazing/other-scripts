@@ -1,0 +1,64 @@
+grid
+
+&type fpar
+/* formula:r=s*24*60/(yzl*d*(va*sin vb*sin vc+cos vb*cos vc*sin va))
+/* input data:latitude,and here is lat_30.
+
+ &sv day = 242
+ &sv pi = 3.1416
+ &sv s = 0.0820
+ 
+ &sv d = 1 / (1 + 0.033 * cos(2 * %pi% * %day% / 365))
+ &sv vc = 0.409 * sin(2 * %pi% * %day% / 365 - 1.39)
+ 
+ fpar_inl = lat_30
+ va = acos(- (tan(fpar_inl) * tan(%vc%)))
+ r_0830 = %s% * 24 * 60 / (%pi% * %d% * (va * sin(fpar_inl) * %vc% + cos(fpar_inl) * cos(%vc%) * sin(va)))
+ 
+&type lue
+/* input data:temperature and humidity,and here is t241_30 and h241_30.
+
+ lue_int = t241_30
+ lue_inh = h241_30
+ t241_k = lue_int + 273.15
+ t241_xp = ((t241_k - 273.15) * (t241_k - 313.15)) / ((t241_k - 273.15) * (t241_k - 313.15) - sqr(t241_k - 298.15))
+ h241_temp = (1.00 - lue_inh) * (0.6108 * exp(17.27 * lue_int / (lue_int + 237.3)))
+ h241_xp = 1.00 / (1.00 + 0.329 * h241_temp)
+ 
+ lue = 1.0120 * t241_xp * h241_xp
+
+&type gpp
+/* input data:evi,and here is hj_evi.
+
+ gpp_ine = hj_evi * (hj_evi >= 0)
+  
+ gpp_temp = r_0830 * hj_evi * lue
+ gpp_0830 = gpp_temp * (gpp_temp >= 0)
+
+&type ra
+/* input data:temperature,and here is t241_30.
+
+ ra_int = t241_30
+  
+ hj_bior = gpp_0830 * 0.05
+ hj_bios = gpp_0830 * 0.25
+ hj_biol = gpp_0830 * 0.7
+ t_temp = (ra_int - 10.0) / 10.0
+ rmr = hj_bior * 0.0008 * pow(2.1,t_temp)
+ rms = hj_bios * 0.001 * pow(1.5,t_temp)
+ rml = hj_biol * 0.0015 * pow(1.9,t_temp)
+ rgr = 0.35 * gpp_0830
+ rgs = 0.3 * gpp_0830
+ rgl = 0.35 * gpp_0830
+ ra_0830 = (rmr + rgr) + (rms + rgs) + (rml + rgl)
+ 
+&type npp
+
+ npp_temp = gpp_0830 - ra_0830
+ npp_0830 = npp_temp * (npp_temp >= 0)
+ 
+/* &do grd &list fpar_inl va lue_int lue_inh t241_k t241_xp h241_temp h241_xp gpp_temp ra_inn ra_int hj_abio hj_bior hj_bios hj_biol t_temp rmr rms rml rgr rgs rgl npp_temp
+/* &if [exist %grd% -grid] &then kill %grd% all
+/* &end
+ 
+q

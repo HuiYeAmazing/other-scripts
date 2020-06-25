@@ -1,0 +1,44 @@
+grid 基本操作说明
+Grid: grids sd-point
+WARNING the Map extent is not defined
+Grid: mape sd-point
+Grid: gridshades sd-point
+Grid: cellvalue sd-point *
+Grid: map extent     (击活图形窗口的工具)
+Grid: clear
+Grid: buildvat sd-euc (为grid建立属性表vat表)
+Grid: sd-jmd = int(sd-euc + 0.5) (将floating型grid转为int型. +0.5表示四舍五入)
+Grid: gridquery sd-jmd # # # value < 25578 (显示grid的特定值)
+Grid: sd-jmd1 = select ( sd-jmd,'value < 25578' ) （将grid的特定值输出为一新的grid）
+Grid: SD-EUC1 = 1/ SD-EUC * 100 (算术操作 )
+Grid: createremap sd-euc95 x95 eqinterval 101 0 ascii value class (建立重分类map表)
+Grid: sd-euc20class = reclass(sd-euc20, x20, data, value,class) (重分类)
+Grid: sd-zonghe95 = sd-land95 + sd-qh95 + sd-euc95class 
+Grid: sd-zonghebnd20 = zonalsum(sd-bndry20,sd-zonghe20) (按行政界线统计，每个县的格网总值)
+
+
+ZONALMIN(<zone_grid>, <value_grid>, {DATA | NODATA})
+ZONALMAX(<zone_grid>, <value_grid>, {DATA | NODATA})
+ZONALSUM(<zone_grid>, <value_grid>, {DATA | NODATA})
+
+
+
+
+函数的使用
+new gridname = fouction ()
+如 sd-euc = EUCdistance (sd-point) (计算欧示距离)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,19 @@
+&if %n% = 1 &then
+kill %sum%%n% all
+/* 使用&do &end 在if下执行多行命令
+w d:\base25all
+&setvar j = 4900
+&do i = 1 &repeat %i% + 1 &until %i% = 20
+&setvar jj = 4900 + %i%
+&if [exists a%jj% -workspace] &then
+&do  /* 使用&do &end 在if下执行多行命令
+w d:\base25all\a%jj%
+arcedit
+edit hydnt
+ef arc
+sel all
+put d:\temp\a%jj%
+q
+clean d:\temp\a%jj%   
+&end         
+&end

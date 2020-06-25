@@ -1,0 +1,14 @@
+/* 产生 ALBer投影中国区域的10公里格网
+generate g10
+fishnet
+/* Fishnet Origin Coordinate (X,Y): 左下角坐标
+-2636718,1870315 
+/*   Y-Axis Coordinate (X,Y): 左上角坐标
+-2636718,5937527 
+/*  Cell Size (Width,Height)
+10000,10000
+0,0  /*   输入0，0 必须输入右上角坐标
+/* Opposite corner of Fishnet (X,Y):右上角坐标
+2220702,5937527
+q
+clean g10

@@ -1,0 +1,8 @@
+eliminate f51-2k f51-2ke
+res area < 400000
+~
+n
+n
+kill f51-2k  all
+
+

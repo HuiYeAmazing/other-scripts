@@ -1,0 +1,204 @@
+grid
+
+/* &do grd &list 
+/* &if [exist %grd% -grid] &then kill %grd% all
+/* &end
+
+/* 1.辐射模块
+&type 辐射模块
+
+
+  /* 1.1 大气上界太阳辐射
+    /* 公式：Ra=s0*24*60/pi*(d*(omega*sin(phi)*sin(delta)+cos(phi)*cos(delta)*sin(omega)))
+    
+    
+    &type Ra
+    /*1.1.1 请输入天数（day）、纬度数据（data_lat）、温度数据（data_tair）、相对湿度数据（data_humid）
+      &sv day = 145
+      data_lat = lat1_clip33
+      data_tair = t0008_clip
+      data_humid = h0008_clip
+      
+      &sv pi = 3.1416
+      &sv s0 = 0.0820
+      &sv d = 1 / (1 + 0.033 * cos(2 * %pi% * %day% / 365))
+      &sv delta = 0.409 * sin(2 * %pi% * %day% / 365 - 1.39)
+           
+      hj_phi = data_lat * %pi% / 180
+      hj_omega = acos(- (tan(hj_phi) * tan(%delta%)))
+      
+    /*1.1.2 计算Ra 
+      hj_ra = %s0% * 24 * 60 / %pi% * %d% * (hj_omega * sin(hj_phi) * sin(%delta%) + cos(hj_phi) * cos(%delta%) * sin(hj_omega))
+
+
+  /* 1.2太阳短波辐射
+    /* 输入参数：日照时数数据（data_sun） 
+    &type Rs
+    /*1.2.1 请输入日照时数数据（data_sun）
+      data_sun = s0008_clip
+    
+      hj_n = 24 * hj_omega / %pi%
+    
+    /*1.2.2 计算Rs 
+      hj_rs = (0.25 + 0.50 *  data_sun / hj_n) * hj_ra
+    
+    /*1.2.3 计算PAR
+      hj_par = hj_rs * 0.47
+
+    
+  /* 1.3陆地表面净辐射
+    /*输入参数：环境卫星反照率数据（data_alpha）
+    &type Rn
+    /*1.3.1 请输入环境卫星1、3、4波段数据
+      data_band1 = hj090526c1dn
+      data_band2 = hj090526c2dn
+      data_band3 = hj090526c3dn
+      data_band4 = hj090526c4dn
+      
+      data_band1l = hj090526c1dn / 0.5763 + 9.3184
+      data_band2l = hj090526c2dn / 0.5410 + 9.1758
+      data_band3l = hj090526c3dn / 0.682 + 7.5072
+      data_band4l = hj090526c4dn / 0.7209 + 4.1484
+      data_band1r = data_band1l * %pi% * sqr(1.013) / (1914.324 * cos(24.982))
+      data_band2r = data_band2l * %pi% * sqr(1.013) / (1825.419 * cos(24.982))
+      data_band3r = data_band3l * %pi% * sqr(1.013) / (1542.664 * cos(24.982))
+      data_band4r = data_band4l * %pi% * sqr(1.013) / (1073.826 * cos(24.982))
+      
+      data_alpha = mean(data_band1r,data_band2r,data_band3r)
+      hj_rns = hj_rs * (1 - data_alpha)
+      hj_e0 = 0.618 * exp(17.27 * data_tair / (data_tair + 237.3))
+      hj_ea = hj_e0 * data_humid / 100.0
+    
+    /*1.3.1 计算Rnl   
+      hj_rnl = 0.000000004903 * pow((data_tair + 273.16),4) * (0.56 - 0.079 * sqrt(hj_ea)) * (0.10 + 0.90 * data_sun / hj_n)
+      
+    /*1.3.2 计算Rn
+      hj_rn = hj_rns - hj_rnl
+    
+
+
+/* 2.校正系数模块
+&type 模块  
+
+  
+  /*2.1 光和有效辐射吸收比率（FPAR）
+    /*输入参数：环境卫星1、3、4波段数据（data_band1、data_band3、data_band4）
+    &type FPAR    
+    /*2.1.1 计算FPAR  
+      hj_evi = 2.5 * (data_band4r - data_band3r) / (data_band4r + 10.0 * data_band3r - 8.5 * data_band1r + 1.0)
+      hj_fpar = hj_evi * (hj_evi >= 0 & hj_evi <= 1)
+       
+                    
+  /*2.2 光能利用率（LUE）(出站报告p22，Running)
+    &type LUE
+    /*2.2.1 胁迫系数  /* 水分胁迫 EF=LE/（LE+H）=LE/Rn
+    
+      tair_temp = data_tair + 273.15
+      humid_temp = data_humid / 100.0
+      tair_xp = ((tair_temp - 273.15) * (tair_temp - 313.15)) / ((tair_temp - 273.15) * (tair_temp - 313.15) - sqr(tair_temp - 298.15))
+      humid_xps1 = (1.00 - humid_temp) * (0.6108 * exp(17.27 * data_tair / (data_tair + 237.3)))
+      humid_xps2 = 1.00 / (1.00 + 0.329 * humid_xps1)
+      humid_xp = humid_xps2 * (humid_xps2 >= 0)
+     
+     
+    /*2.2.2 计算LUE
+      hj_lue = 1.0120 * tair_xp * humid_xp 
+      
+  
+        
+/* 3.数据产品模块
+&type 数据产品模块  
+  
+  /*3.1 GPP产品
+    &type GPP
+    hj_gppt = hj_par * hj_fpar * hj_lue
+    hj_gpp = hj_gppt * (hj_gppt >= 0)
+
+    
+  /*3.2 NPP产品
+    &type NPP
+    hj_nppt = hj_par * hj_fpar * 0.389 * tair_xp * humid_xp 
+    hj_npp = hj_nppt * (hj_nppt >= 0)
+    
+  
+  
+  
+  /*3.4 陆地表面蒸散（ET）
+    &type ET
+      hj_le = hj_rn * (0.137 + 0.759 * hj_evi + 0.004 * data_tair)
+      hj_ett = hj_le / 0.408
+      
+      hj_et = hj_ett * (hj_ett >= 0)
+
+
+
+/*5 陆地表面温度（LST）
+  /*输入参数：环境卫星红光、热红外波段数据（band3,band4） modis第19波段，第2波段数据
+  /*公式：Ts = γ * {ε^(-1) * [ψ1 * Lλ +ψ2] + ψ3 } + δ  ;Ts:陆表温度；γ,δ:Planck公式线性近似得到的参数 ；ε：地表发射率 ；Lλ:辐射强度；ψ1,ψ2,ψ3：大气参数
+  &type LST 
+    
+    /*5.1传感器接收到的辐射强度 Lλ
+     /*公式：L = (DN - b)/g          DN:热红外波段影响灰度值，b和g为常数，头文件中给出，b = -44.598，g = 61.472
+     DN = hj090526c4dn
+     Lλ = (DN - (-44.598)) / 61.472
+     
+    /*5.2接近于地表温度的初始温度T0（用亮度温度代替）
+     /*公式 T = 1249.91 / ln(1 + 589.33 / Lλ)
+     T0 = 1249.91 / log(1 + 589.33 / Lλ)
+     
+    /*5.3 计算参数γ（Gamma）和δ（Delta）
+     /*公式 γ(λ,T0) = 1 / β(λ,T0); δ(λ,T0) = -α(λ,T0)/β(λ,T0); 
+     /* β(λ,T0) = c2 * B(λ,T0) / (T0 ^ 2) * [λ^4 / c1 * B(λ,T0) + 1/λ];  α(λ,T0) = B(λ,T0) + β(λ,T0); 
+     /* B(λ,T0) = c1 * λ^(-5) / [exp(c2 / (λ * T0)) -1 ]; 
+     /* c1 = 1.9104 * 10^8;  c2 = 1.43877 * 10^4;
+     &sv c1 = 1.9104 * 10 ^ 8
+     &sv c2 = 1.43877 * 10 ^ 4
+     &sv λ = 11.511
+     B_λ_T0 = %c1% * (%λ% ^ (-5)) / (exp(%c2% / (%λ% * T0)) - 1)
+     β_λ_T0 = %c2% * B_λ_T0 / (T0 ^ 2) * (%λ% ^4 / %c1% * B_λ_T0 + 1 / %λ%)
+     α_λ_T0 = B_λ_T0 + β_λ_T0
+     Gamma = 1 / β_λ_T0
+     Delta = - α_λ_T0 / β_λ_T0
+     
+    /*5.4计算地表发射率ε（Epsilon）
+     /*公式：当NDVI<0.5,ε=0.0793;NDVI>0.7,ε=0.99;0.05<=NDVI<=0.7,ε=0.004Pv + 0.986
+     /*Pv = [(NDVI - NDVIs) / (NDVIv - NDVIs)] ^ 2;  NDVIv,NDVIs分别为植被和裸土NDVI值，分别取0.7和0.05
+     /*NDVI = (band4 - band3）/ (band4 + band3)；
+     &sv NDVIs = 0.05 
+     &sv NDVIv = 0.7
+     band4 = hj090526c4dn
+     band3 = hj090526c3dn
+     NDVI = (band4 - band3）/ (band4 + band3)
+     Pv = ((NDVI - %NDVIs%) / (%NDVIv% - %NDVIs%)) ^ 2
+     Epsilon = NDVI - NDVI /*建立等大小零矩阵
+     &if 0.05 <= NDVI <= 0.7 &then
+       Epsilon = 0.004 * Pv + 0.986
+       &else &if NDVI < 0.05 &then
+         Epsilon = 0.0793
+         &else Epsilon = 0.99
+     
+    /*5.5计算大气水汽含量ω（Omega），
+     /*输入数据modis第19波段mo_band19，第2波段地面反射率mo_band2
+     /*公式：ω = [(α - ln(ρ19/ρ2) / β] ^ 2; α,β为常量,α=0.02,β=0.6321
+     &sv alpha = 0.02
+     &sv beta = 0.6321
+     mo_band19 = modis_band19ref
+     mo_band2 = modis_band2ref
+     Omega = ((%alpha% - log(mo_band19 / mo_band2)) / %beta%)
+     
+    /*5.6 大气参数 ψ1,ψ2,ψ3  (Psi1,Psi2,Psi3)
+    /*公式：ψ1 = 0.02287ω^3 - 0.02594ω^2 + 0.17466ω + 0.99352
+    /*      ψ2 = -0.155ω^3 - 0.17076ω^2 - 2.32394ω + 0.28594
+    /*      ψ3 = -0.053ω^3 + 0.36115ω^2 + 1.12284ω - 0.09672
+    Psi1 = 0.02287 * Omega ^3 - 0.02594 * Omega ^2 + 0.17466 * Omega + 0.99352
+    Psi2 = -0.155 * Omega ^3 - 0.17076 * Omega ^2 - 2.32394 * Omega + 0.28594
+    Psi3 = -0.053 * Omega ^3 + 0.36115 * Omega ^2 + 1.12284 * Omega - 0.09672
+    
+    /*5.7 陆地表面温度Ts
+    Ts = Gamma * ((Epsilon^(-1))* (Psi1 * Lλ + Psi2) + Psi3) + Delta
+       
+       
+  
+    
+    
+q  

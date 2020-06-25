@@ -1,0 +1,255 @@
+w d:\a49
+&setvar j = 4900
+&do i = 1 &repeat %i% + 1 &until %i% = 20
+&setvar jj = 4900 + %i%
+&if [exists a%jj% -workspace] &then
+&do
+arcedit
+edit d:\a49\a%jj%\hydnt
+ef arc
+sel all
+put e:\temp\a%jj%
+q
+build e:\temp\a%jj% line
+&end                     
+&end
+
+
+&do i = 49 &repeat %i% + 1 &until %i% = 50
+w d:\b%i%
+&setvar j = %i% * 100
+&do i = 1 &repeat %i% + 1 &until %i% = 20
+&setvar jj = %j% + %i%
+&if [exists b%jj% -workspace] &then
+&do
+arcedit
+edit d:\b%i%\b%jj%\hydnt
+ef arc
+sel all
+put e:\temp\b%jj%
+q
+build e:\temp\b%jj% line
+&end            
+&end 
+
+&do i = 49 &repeat %i% + 1 &until %i% = 50
+w d:\c%i%
+&setvar j = %i% * 100
+&do i = 1 &repeat %i% + 1 &until %i% = 20
+&setvar jj = %j% + %i%
+&if [exists c%jj% -workspace] &then
+&do
+arcedit
+edit d:\c%i%\c%jj%\hydnt
+ef arc
+sel all
+put e:\temp\c%jj%
+q
+build e:\temp\c%jj% line
+&end             
+&end 
+
+&do i = 49 &repeat %i% + 1 &until %i% = 50
+w d:\d%i%
+&setvar j = %i% * 100
+&do i = 1 &repeat %i% + 1 &until %i% = 20
+&setvar jj = %j% + %i%
+&if [exists d%jj% -workspace] &then
+&do
+arcedit
+edit d:\d%i%\d%jj%\hydnt
+ef arc
+sel all
+put e:\temp\d%jj%
+q
+build e:\temp\d%jj% line
+&end             
+&end 
+
+&do i = 49 &repeat %i% + 1 &until %i% = 50
+w d:\e%i%
+&setvar j = %i% * 100
+&do i = 1 &repeat %i% + 1 &until %i% = 20
+&setvar jj = %j% + %i%
+&if [exists e%jj% -workspace] &then
+&do
+arcedit
+edit d:\e%i%\e%jj%\hydnt
+ef arc
+sel all
+put e:\temp\e%jj%
+q
+build e:\temp\e%jj% line
+&end             
+&end 
+
+&do i = 47 &repeat %i% + 1 &until %i% = 51
+w d:\f%i% 
+&setvar j = %i% * 100
+&do i = 1 &repeat %i% + 1 &until %i% = 20
+&setvar jj = %j% + %i%
+&if [exists f%jj% -workspace] &then
+&do
+arcedit
+edit d:\f%i%\f%jj%\hydnt
+ef arc
+sel all
+put e:\temp\f%jj%
+q
+build e:\temp\f%jj% line
+&end            
+&end 
+
+&do i = 45 &repeat %i% + 1 &until %i% = 51
+w d:\g%i% 
+&setvar j = %i% * 100
+&do i = 1 &repeat %i% + 1 &until %i% = 20
+&setvar jj = %j% + %i%
+&if [exists g%jj% -workspace] &then
+&do
+arcedit
+edit d:\g%i%\g%jj%\hydnt
+ef arc
+sel all
+put e:\temp\g%jj%
+q
+build e:\temp\g%jj% line
+&end            
+&end 
+
+&do i = 44 &repeat %i% + 1 &until %i% = 51
+w d:\h%i%
+&setvar j = %i% * 100
+&do i = 1 &repeat %i% + 1 &until %i% = 20
+&setvar jj = %j% + %i%
+&if [exists h%jj% -workspace] &then
+&do
+arcedit
+edit d:\h%i%\h%jj%\hydnt
+ef arc
+sel all
+put e:\temp\h%jj%
+q
+build e:\temp\h%jj% line
+&end             
+&end 
+
+&do i = 43 &repeat %i% + 1 &until %i% = 51
+w d:\i%i% 
+&setvar j = %i% * 100
+&do i = 1 &repeat %i% + 1 &until %i% = 20
+&setvar jj = %j% + %i%
+&if [exists i%jj% -workspace] &then
+&do
+arcedit
+edit d:\i%i%\i%jj%\hydnt
+ef arc
+sel all
+put e:\temp\i%jj%
+q
+build e:\temp\i%jj% line
+&end            
+&end 
+
+&do i = 43 &repeat %i% + 1 &until %i% = 51
+w d:\j%i%
+&setvar j = %i% * 100
+&do i = 1 &repeat %i% + 1 &until %i% = 20
+&setvar jj = %j% + %i%
+&if [exists j%jj% -workspace] &then
+&do
+arcedit
+edit d:\j%i%\j%jj%\hydnt
+ef arc
+sel all
+put e:\temp\j%jj%
+q
+build e:\temp\j%jj% line
+&end             
+&end 
+
+&do i = 43 &repeat %i% + 1 &until %i% = 52
+w d:\k%i% 
+&setvar j = %i% * 100
+&do i = 1 &repeat %i% + 1 &until %i% = 20
+&setvar jj = %j% + %i%
+&if [exists k%jj% -workspace] &then
+&do
+arcedit
+edit d:\k%i%\k%jj%\hydnt
+ef arc
+sel all
+put e:\temp\k%jj%
+q
+build e:\temp\k%jj% line
+&end            
+&end 
+
+&do i = 44 &repeat %i% + 1 &until %i% = 46
+w d:\l%i%
+&setvar j = %i% * 100
+&do i = 1 &repeat %i% + 1 &until %i% = 20
+&setvar jj = %j% + %i%
+&if [exists l%jj% -workspace] &then
+&do
+arcedit
+edit d:\l%i%\l%jj%\hydnt
+ef arc
+sel all
+put e:\temp\l%jj%
+q
+build e:\temp\l%jj% line
+&end             
+&end 
+&do i = 49 &repeat %i% + 1 &until %i% = 53
+w d:\l%i%
+&setvar j = %i% * 100
+&do i = 1 &repeat %i% + 1 &until %i% = 20
+&setvar jj = %j% + %i%
+&if [exists l%jj% -workspace] &then
+&do
+arcedit
+edit d:\l%i%\l%jj%\hydnt
+ef arc
+sel all
+put e:\temp\l%jj%
+q
+build e:\temp\l%jj% line
+&end             
+&end 
+
+w d:\m45
+&do i = 50 &repeat %i% + 1 &until %i% = 53
+w d:\m%i% 
+&setvar j = %i% * 100
+&do i = 1 &repeat %i% + 1 &until %i% = 20
+&setvar jj = %j% + %i%
+&if [exists m%jj% -workspace] &then
+&do
+arcedit
+edit d:\m%i%\m%jj%\hydnt
+ef arc
+sel all
+put e:\temp\m%jj%
+q
+build e:\temp\m%jj% line
+&end            
+&end 
+
+&do i = 51 &repeat %i% + 1 &until %i% = 52
+w d:\n%i%
+&setvar j = %i% * 100
+&do i = 1 &repeat %i% + 1 &until %i% = 20
+&setvar jj = %j% + %i%
+&if [exists n%jj% -workspace] &then
+&do
+arcedit
+edit d:\n%i%\n%jj%\hydnt
+ef arc
+sel all
+put e:\temp\n%jj%
+q
+build e:\temp\n%jj% line
+&end             
+&end  
+    

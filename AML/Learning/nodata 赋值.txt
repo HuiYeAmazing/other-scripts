@@ -1,0 +1,6 @@
+outgrid = con(ingrid1 > 5, 100, ingrid1) 
+outgrid = con(ingrid1 == 5, 100, ingrid1)                  条件        true  是时为100 false 时 值不变
+tt = con(isnull(t1),FOCALMEAN(t1,RECTANGLE,3,3), t1)
+FOCALMEAN(t1,RECTANGLE,3,3) 用临近的值为 nodata 赋值
+
+grid2 = con(isnull(grid1),0, grid1)

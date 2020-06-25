@@ -1,0 +1,23 @@
+通过planted.xcode planted.pat表的连接， 将dxf-text字段 赋给一新建的字符字段，然后转成数字
+
+clean planted # 0 1
+build planted point
+joinitem  planted.pat planted.xcode planted.pat planted-id plante
+additem planted.pat planted.pat t 1 1 c
+
+Arc: tables
+sel planted.pat
+cal t = dxf-text
+alter
+Enter Item Name: t
+COLUMN   ITEM NAME        WIDTH OUTPUT  TYPE N.DEC  ALTERNATE NAME
+  161  T                      1     1     C      -
+Item Name: t
+Item Output Width: 1
+Item Type: n
+Item Decimal Places: 0
+Alternate Item Name:
+COLUMN   ITEM NAME        WIDTH OUTPUT  TYPE N.DEC  ALTERNATE NAME
+  161  T                      1     1     N      0
+
+Tables: cal planted-id = t

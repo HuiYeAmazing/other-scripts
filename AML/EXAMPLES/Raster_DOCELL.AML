@@ -1,0 +1,57 @@
+&WO E:\YeHui_Zone\Y20130508
+
+grid
+&s p1 = E:\YeHui_Zone\Y20130508\Ts87-11
+&s p2 = E:\YeHui_Zone\OUTPUT
+&s p3 = E:\YeHui_Zone\Y20130508
+
+&do i = 2008 &to 2011
+&do k = 121 &to 304
+&s j = %i% * 1000 + %k%
+ 
+
+&s element = ts%j%
+&s hd = [after %element% ts]
+&ty %j%
+
+
+setwindow %p2%\ld_crop84
+setcell %p2%\ld_crop84 
+setmask %p2%\ld_crop84
+
+/* R = 8.31J/mol/K
+&s R = 8.31
+
+
+&ty %hd%
+
+DOCELL
+  if (%p1%\%element% < -10)
+  {
+   RH%hd%1 = setnull(%p1%\%element% >= -10,0)
+  }
+	if (%p2%\ld_crop84 == 11 | %p2%\ld_crop84 == 12)
+	  {
+	  temp1 := 1
+	  Q10_2 := 1.21
+	  RH%hd%2 = 1.36 * exp(0.019 * %p1%\%element%) * pow(Q10_2,((%p1%\%element% - 10) / 10)) * temp1
+	  }
+	if (%p2%\ld_crop84 == 13)
+		{
+		temp2 := 1
+		Q10_2 := 1.36
+	  RH%hd%3 = 0.412 * exp(0.0307 * %p1%\%element%) * pow(Q10_2,((%p1%\%element% - 10) / 10)) * temp2	
+	  }
+	&ty merging
+	
+END	
+		%p3%\rh%hd% = merge(RH%hd%1,RH%hd%2,RH%hd%3)
+		kill RH%hd%1 all
+		kill RH%hd%2 all
+		kill RH%hd%3 all
+	
+&end
+&end
+q
+time
+

@@ -1,0 +1,14 @@
+
+dbaseinfo qw205.dbf qw205
+
+additem qw205 qw205 id 5 5 I
+tables
+ sel qw205
+ cal id = ave_sta_id
+q
+joinitem dbqw56.pat qw205 dbqw56.pat id
+ tables
+ sel dbqw56.pat
+ cal qw205 = ave_tave
+q
+ dropitem dbqw56.pat dbqw56.pat ave_sta_id ave_year ave_month ave_tave

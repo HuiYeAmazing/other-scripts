@@ -1,0 +1,169 @@
+/* This code will be used to calc and statstic the PH of the verge which locate in PH up 7.0
+/* Edit by YeHui 20120705
+
+/*--------------------------------------------------------------|
+/* Data source                                                  |
+/* vege1500 /- vege type under 1500m -/                         |
+/* ph_nodata /- pH value where the value need verify -/         |
+/* ph_xj /- pH value in Xinjiang -/                             |
+/* t_ph_u1500 /- pH value where is under 150m -/                |
+/* code90_u1500 /- code90 under 1500m -/                        |                                 |
+/*--------------------------------------------------------------|
+&wo F:\06_Mywork\PH
+
+grid
+
+/* PH under 1500m overlay with PH_xj 1:1
+&if [exist PH_source -grid] &then kill PH_source all
+&ty PH_source
+PH_source = merge(PH_xj, t_ph_u1500)
+
+/* PH
+/* extract the region of the PH up 7.0 1:100
+
+&if [exist PH_up7 -grid] &then kill PH_up7 all
+&ty PH_up7
+PH_up7 = int(setnull(PH_source < 7.2,PH_source) * 100)
+
+setmask PH_up7
+setwindow PH_up7
+setcell PH_up7
+
+/* code
+/* generate the code in the region of which ph is up 7
+&if [exist code90_up7 -grid] &then kill code90_up7 all
+&if [exist vege_up7 -grid] &then kill vege_up7 all
+&ty code90_up7
+code90_up7 = code90_u1500
+vege_up7 = vege1500
+
+&ty setmask off
+setmask off
+/* tables
+kill tables_up7 info
+kill Ta_vege_up7 info
+Tables_up7 = zonalstats(code90_up7, PH_up7, all)
+Ta_vege_up7 = zonalstats(vege1500, PH_up7, all)
+/* infodbase majority_up7 majority_up7
+
+q
+tables
+sel Tables_up7
+resel majority = 0
+cal majority = max
+sel Ta_vege_up7
+resel majority = 0 
+cal majority = max
+
+q
+grid
+
+/* PH
+/* extract the region of the PH under 7.0
+
+&if [exist PH_un7 -grid] &then kill PH_un7 all
+&ty PH_temp
+PH_temp = merge(PH_nodata,PH_source)
+&ty PH_un7
+PH_un7 = int(setnull(PH_temp > 7.2,PH_temp) * 100)
+kill PH_temp all
+
+/* Code
+/* extract each code of the majority of PH_un7
+&if [exist code_un7 -grid] &then kill code_un7 all
+setmask PH_un7
+setwindow PH_un7
+setcell PH_un7
+
+&ty code_un7
+code_un7 = code90_u1500
+
+
+/* jion the items of code_un7 with 
+q
+joinitem code_un7.vat tables_up7 code_un7.vat value
+/* joinitem VEGE_PH0.vat Ta_vege_up7 VEGE_PH0.vat value
+
+grid
+/* PH
+&ty calc PH_un7_new
+/* generate the PH of the area under 7.0
+
+&if [exist PH_un7_new -grid] &then kill PH_un7_new all
+&if [exist PH_0_new -grid] &then kill PH_0_new all
+&ty PH_un7_new
+PH_un7_new = code_un7.majority
+/* PH_0_new = VEGE_PH0.majority
+
+/* ------------------------------------------------
+&if [exist vege_0_mask -grid] &then kill vege_0_mask all
+&if [exist vege_region0 -grid] &then kill vege_region0 all
+temp1 = setnull(ph_un7_new <> 0,0)
+temp2 = setnull(ph_up7 <> 0,0)
+vege_0_mask = merge(temp1, temp2)
+
+kill temp1 all
+kill temp2 all
+
+setmask vege_0_mask
+setwindow vege_0_mask
+setcell vege_0_mask
+
+&ty setmask
+vege_region0 = vege1500
+
+q
+joinitem vege_region0.vat Ta_vege_up7 vege_region0.vat value
+
+
+grid
+PH_0_new = vege_region0.majority
+&if [exist PH_edit -grid] &then kill PH_edit all
+&if [exist PH_0705 -grid] &then kill PH_0705 all
+&ty PH_edit
+PH_edit = merge(PH_0_new,PH_un7_new,PH_up7) / 100.0
+PH_0705 = con(PH_edit == 0,7.2,PH_edit)
+
+/* This part is the second step
+/* -------------------------------
+
+/* &if [exist vege_region0 -grid] &then kill vege_region0 all
+/* temp0 = setnull(ph_edit <> 0,ph_edit)
+/* temp1 = setnull(ph_un7_new <> 0,0)
+/* temp2 = setnull(ph_up7 <> 0,0)
+/* vege_0_mask = merge(temp0, temp1, temp2)
+/* kill temp0 all
+/* kill temp1 all
+/* kill temp2 all
+/* 
+/* setmask vege_0_mask
+/* setwindow vege_0_mask
+/* setcell vege_0_mask
+/* 
+/* &ty setmask
+/* vege_region0 = vege1500
+/* /* kill vege_0_mask all
+/* 
+/* &if [exist ph_up0 -grid] &then kill ph_up0 all
+/* kill tabl_up0 info
+/* temp3 = setnull(ph_un7_new == 0,ph_un7_new)
+/* temp4 = setnull(ph_up7 == 0,ph_up7)
+/* PH_up0 = merge(temp3, temp4)
+/* kill temp3 all
+/* kill temp4 all
+/* tabl_up0 = zonalstats(vege_region0, PH_up0, mean)
+/* 
+/* q
+/* joinitem vege_region0.vat tabl_up0 vege_region0.vat value
+/* 
+/* grid
+/* &if [exist ph_st2 -grid] &then kill ph_st2 all
+/* &if [exist ph_edit0704 -grid] &then kill ph_edit0704 all
+/* PH_st2 = vege_region0.mean / 100.0
+/* 
+/* PH_edit0704 = merge(PH_st2, ph_edit)
+/* 
+/* q
+/* dropitem vege_region0.vat vege_region0.vat mean
+/* &ty finish is ok!
+q

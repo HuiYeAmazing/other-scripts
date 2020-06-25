@@ -1,0 +1,8 @@
+select rad-xun
+reselect year = 2000 and xun = 1
+copy rad-xun 20001   /* 生成新info表
+select  /* 关闭打开的表
+
+
+sel 1983.pat
+copy 1983.pat rad1983

@@ -1,0 +1,46 @@
+&do name &list AH BJ CQ FJ GD GS GX GZ HB HB1 HEN HEN1 HLJ HN HUB HUN JL JS JX LN NMG NX QH SC SC1 SD SH SHANAX SHANXI TJ TW XJ XZ YN YN1 ZHEJ
+idedit %name%
+&end
+
+append luc80
+AH 
+BJ 
+CQ 
+FJ 
+GD 
+GS 
+GX 
+GZ 
+HB 
+HB1 
+HEN 
+HEN1 
+HLJ 
+HN 
+HUB 
+HUN 
+JL 
+JS 
+JX 
+LN 
+NMG 
+NX 
+QH 
+SC 
+SC1 
+SD 
+SH 
+SHANAX 
+SHANXI 
+TJ 
+TW 
+XJ 
+XZ 
+YN 
+YN1 
+ZHEJ
+
+
+end
+
+clean luc80 dt 0 0.0001

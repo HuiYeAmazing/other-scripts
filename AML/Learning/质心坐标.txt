@@ -1,0 +1,4 @@
+先产生质心坐标
+CENTROIDLABELS <cover> {OUTSIDE | INSIDE}
+
+然后用ungenerate产生质心坐标文件

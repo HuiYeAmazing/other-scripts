@@ -1,0 +1,31 @@
+&wo Z:\YeHui_Zone\OUT\
+&s p1 := Z:\YeHui_Zone\OUT\
+&s p2 := Z:\YeHui_Zone\OUTPUT\
+grid
+setmask %p2%ld_crop
+setwindow %p2%ld_crop
+
+DOCELL
+		if (%p2%ld_crop == 11)
+		ld11 = 11
+		if (%p2%ld_crop == 12)
+		ld12 = 12
+		if (%p2%ld_crop == 13)
+		ld13 = 13
+END		
+
+&do i = 1987 &to 2011
+	   rh%i%_11 = zonalstats(ld11, rs%i%_2, MEAN)
+	 infodbase rh%i%_11 rh%i%_11
+	 
+	 	 rh%i%_12 = zonalstats(ld12, rs%i%_2, MEAN)
+	 infodbase rh%i%_12 rh%i%_12
+	 
+	 	 rh%i%_13 = zonalstats(ld13, rs%i%_2, MEAN)
+	 infodbase rh%i%_13 rh%i%_13
+	 
+&end
+kill ld11 all
+kill ld12 all
+kill ld13 all
+q

@@ -1,0 +1,35 @@
+&ty soil organic carbon calculation
+/* Edit by yehui20130103
+/* soil bulk density unit -> dm3
+/* soil organic carbon unit -> %
+/* ref_depth -> cm
+/* scale factor of T_BD,T_OC: 1 * 100
+
+&WO E:\YeHui_Zone\»ù´¡Êý¾Ý¿â\soil-world\world\
+
+grid
+
+&if [exist D_30 -GRID] &THEN KILL D_30 ALL
+&if [exist D_sub -GRID] &THEN KILL D_sub ALL
+&if [exist SOC_30 -GRID] &THEN KILL SOC_30 ALL
+&if [exist SOC_SUB -GRID] &THEN KILL SOC_SUB ALL
+&if [exist SOC_1M -GRID] &THEN KILL SOC_1M ALL
+
+&ty D_30 SOC_30 calculating
+D_30 = setnull(ref_depth > 30 | ref_depth == 0, ref_depth)
+SOC_30 = T_OC * T_BD * D_30
+
+
+&ty D_SUB SOC_SUB calculating
+D_sub = setnull(ref_depth <= 30, ref_depth)
+SOC_SUB = T_OC * T_BD * 30 + S_OC * S_BD * (100 - 30)
+
+&TY SOC_1M calculating
+SOC_1M = merge(SOC_30,SOC_SUB)
+
+KILL D_30 ALL    
+KILL D_sub ALL    
+KILL SOC_30 ALL  
+KILL SOC_SUB ALL
+
+q

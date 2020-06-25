@@ -1,0 +1,43 @@
+/* 在grid下运行
+/*&sv grid1 = [response '输入1km网格grid名称']
+/*&sv win = [response '输入计算窗口名称']
+
+&sv sum = [response '输入临时计算grid名称']
+/*&sv for = [response '输入林地grid名称--值为1的']
+&setvar n = 1
+&do i = 1 &repeat %i% + 1 &until %i% = 1681
+&do m = 1 &repeat %m% + 1 &until %m% = 1461
+        /*%win%%i% = select(db1kmgrid, [quote value = %i%])
+&setvar xmin := 767942 + 1000 * ( %m% - 1 )
+&setvar ymin := 4243287 + 1000 * ( %i% - 1 )
+&setvar xmax := 767942 + 1000 * %m%
+&setvar ymax := 4243287 + 1000 * %i%
+&setvar kk := %i% * %m%
+&setvar jj := %i% * %m% - 1 
+setwindow %xmin% %ymin% %xmax% %ymax% 
+
+setcell 100
+
+%sum%%n% = zonalsum(dbgrid,e:\db-land\grid\for86-1)
+setcell 1000
+&setvar nn = %n% - 1
+setwindow maxof
+&if %n% = 1 &then
+s%n% = merge(%sum%%n%)
+&if %n% = 1 &then
+kill %sum%%n% all
+&if %n% > 1 &then
+s%n% = merge(s%nn%,%sum%%n%)
+&if %n% > 1 &then
+kill %sum%%n% all
+&if %n% > 1 &then
+kill s%nn% all
+&setvar n = %n% + 1
+&end
+&end
+&type 处理结束
+
+
+
+
+

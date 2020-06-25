@@ -1,0 +1,15 @@
+&s wks = D:\f_work\E_public\qi_2019\datasets\jx_qinshi_2017_mosaic
+
+&wo %wks%
+
+&s f_raster = %wks%\jx_qinshi_17
+
+grid
+
+/*setmask %f_raster%
+/*setwindow %f_raster%
+/*setcell %f_raster%
+
+ld_final = con(isnull(%f_raster%), focalmajority(%f_raster%, rectangle, 5, 5), %f_raster%)
+
+q

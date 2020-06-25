@@ -1,0 +1,9 @@
+&s covers = [listfile * -cover]
+&s num := [token %covers% -count]
+&do i := 1 &to %num%
+&type [extract %i% %covers%] 
+&end
+&return
+
+上程序列出目录下的所有cov名称
+可以copy到append命令

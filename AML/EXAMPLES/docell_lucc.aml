@@ -1,0 +1,72 @@
+grid
+
+kill 
+
+
+shuitian_g =  con(isnull(shuitian_c),0,shuitian_c)
+handi_g =  con(isnull(handi_c),0,handi_c)
+lindi_g =  con(isnull(lindi_c),0,lindi_c)
+caodi_g =  con(isnull(caodi_c),0,caodi_c)
+shuiyu_g =  con(isnull(shuiyu_c),0,shuiyu_c)
+jianshe_g =  con(isnull(jianshe_c),0,jianshe_c)
+weiliyong_g =  con(isnull(weiliyong_c),0,weiliyong_c)
+
+
+landmax = max(shuitian_g,handi_g,lindi_g,caodi_g,shuiyu_g,jianshe_g,weiliyong_g)
+
+landmin = min(shuitian_g,handi_g,lindi_g,caodi_g,shuiyu_g,jianshe_g,weiliyong_g)
+
+
+docell
+
+   if (landmax == 0) land_expans = 0
+
+   else if (landmax == lindi_g)
+ land_expans = 20
+
+   else if (landmax == caodi_g)
+ land_expans = 30
+
+   else if (landmax == shuiyu_g)
+ land_expans = 40
+
+   else if (landmax == jianshe_g)
+ land_expans = 50
+
+   else if (landmax == weiliyong_g)
+ land_expans = 60
+   
+   else if (landmax == shuitian_g)
+ land_expans = 11
+
+else land_expans = 120
+
+end
+
+docell
+
+   if (landmin == 0) land_decreas = 0
+
+   else if (landmin == lindi_g)
+ land_decreas = 20
+
+   else if (landmin == caodi_g)
+ land_decreas = 30
+
+   else if (landmin == shuiyu_g)
+ land_decreas = 40
+
+   else if (landmin == jianshe_g)
+ land_decreas = 50
+
+   else if (landmin == weiliyong_g)
+ land_decreas = 60
+
+   else if (landmin == shuitian_g)
+ land_decreas = 11
+
+else land_decreas = 12
+
+end
+
+q

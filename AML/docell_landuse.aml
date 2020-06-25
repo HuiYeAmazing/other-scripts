@@ -1,0 +1,19 @@
+&s wks = D:\f_work\E_public\qi_2019\datasets\jx_qinshi_2017_mosaic
+
+&wo %wks%
+
+&s f_raster = %wks%\ld_final
+
+grid
+
+/*setmask %f_raster%
+/*setwindow %f_raster%
+/*setcell %f_raster%
+
+docell
+	if (%f_raster% > 10)
+		jx_qs_17 = %f_raster% - 10
+	else jx_qs_17 = %f_raster%
+end
+
+q

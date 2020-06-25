@@ -1,0 +1,2 @@
+﻿outgrid = con(isnull(ingrid1), 0, ingrid1) /* nodata 转为0  
+tt = setnull(zi2020 == 0,zi2020) /* 0 转为nodata  将其他数值赚为nodata

@@ -1,0 +1,219 @@
+arcedit
+edit k:\anhui\landp
+ef poly
+sel $id = 51 or $id = 52 or $id = 53
+put d:\city\2000\anhui-c
+q
+clean d:\city\2000\anhui-c # 10 10
+arcedit
+edit k:\beijing\landp
+ef poly
+sel $id = 51 or $id = 52 or $id = 53
+put d:\city\2000\beijing-c
+q
+clean d:\city\2000\beijing-c # 10 10
+arcedit
+edit k:\chongqing\landp
+ef poly
+sel $id = 51 or $id = 52 or $id = 53
+put d:\city\2000\chongqing-c
+q
+clean d:\city\2000\chongqing-c # 10 10
+arcedit
+edit k:\fujian\landp
+ef poly
+sel $id = 51 or $id = 52 or $id = 53
+put d:\city\2000\fujian-c
+q
+clean d:\city\2000\fujian-c # 10 10
+arcedit
+edit k:\gansu\landp
+ef poly
+sel $id = 51 or $id = 52 or $id = 53
+put d:\city\2000\gansu-c
+q
+clean d:\city\2000\gansu-c # 10 10
+arcedit
+edit k:\guangdong\landp
+ef poly
+sel $id = 51 or $id = 52 or $id = 53
+put d:\city\2000\guangdong-c
+q
+clean d:\city\2000\guangdong-c # 10 10
+arcedit
+edit k:\guangxi\landp
+ef poly
+sel $id = 51 or $id = 52 or $id = 53
+put d:\city\2000\guangxi-c
+q
+clean d:\city\2000\guangxi-c # 10 10
+arcedit
+edit k:\guizhou\landp
+ef poly
+sel $id = 51 or $id = 52 or $id = 53
+put d:\city\2000\guizhou-c
+q
+clean d:\city\2000\guizhou-c # 10 10
+arcedit
+edit k:\hainan\landp
+ef poly
+sel $id = 51 or $id = 52 or $id = 53
+put d:\city\2000\hainan-c
+q
+clean d:\city\2000\hainan-c # 10 10
+arcedit
+edit k:\henan\landp
+ef poly
+sel $id = 51 or $id = 52 or $id = 53
+put d:\city\2000\henan-c
+q
+clean d:\city\2000\henan-c # 10 10
+arcedit
+edit k:\heilongjiang\landp
+ef poly
+sel $id = 51 or $id = 52 or $id = 53
+put d:\city\2000\heilj-c
+q
+clean d:\city\2000\heilj-c # 10 10
+arcedit
+edit k:\hebei\landp
+ef poly
+sel $id = 51 or $id = 52 or $id = 53
+put d:\city\2000\hebei-c
+q
+clean d:\city\2000\hebei-c # 10 10
+
+
+arcedit
+edit k:\hubei\landp
+ef poly
+sel $id = 51 or $id = 52 or $id = 53
+put d:\city\2000\hubei-c
+q
+clean d:\city\2000\hubei-c # 10 10
+arcedit
+edit k:\hunan\landp
+ef poly
+sel $id = 51 or $id = 52 or $id = 53
+put d:\city\2000\hunan-c
+q
+clean d:\city\2000\hunan-c # 10 10
+arcedit
+edit k:\jiangsu\landp
+ef poly
+sel $id = 51 or $id = 52 or $id = 53
+put d:\city\2000\jiangsu-c
+q
+clean d:\city\2000\jiangsu-c # 10 10
+arcedit
+edit k:\jiangxi\landp
+ef poly
+sel $id = 51 or $id = 52 or $id = 53
+put d:\city\2000\jiangxi-c
+q
+clean d:\city\2000\jiangxi-c # 10 10
+arcedit
+edit k:\jilin\landp
+ef poly
+sel $id = 51 or $id = 52 or $id = 53
+put d:\city\2000\jilin-c
+q
+clean d:\city\2000\jilin-c # 10 10
+arcedit
+edit k:\liaoning\landp
+ef poly
+sel $id = 51 or $id = 52 or $id = 53
+put d:\city\2000\liaoning-c
+q
+clean d:\city\2000\liaoning-c # 10 10
+arcedit
+edit k:\neimeng\landp
+ef poly
+sel $id = 51 or $id = 52 or $id = 53
+put d:\city\2000\neimeng-c
+q
+clean d:\city\2000\neimeng-c # 10 10
+arcedit
+edit k:\ningxia\landp
+ef poly
+sel $id = 51 or $id = 52 or $id = 53
+put d:\city\2000\ningxia-c
+q
+clean d:\city\2000\ningxia-c # 10 10
+arcedit
+edit k:\qinghai\landp
+ef poly
+sel $id = 51 or $id = 52 or $id = 53
+put d:\city\2000\qinghai-c
+q
+clean d:\city\2000\qinghai-c # 10 10
+arcedit
+edit k:\shaanxi\landp
+ef poly
+sel $id = 51 or $id = 52 or $id = 53
+put d:\city\2000\shaanxi-c
+q
+clean d:\city\2000\shaanxi-c # 10 10
+arcedit
+edit k:\shandong\landp
+ef poly
+sel $id = 51 or $id = 52 or $id = 53
+put d:\city\2000\shandong-c
+q
+clean d:\city\2000\shandong-c # 10 10
+arcedit
+edit k:\shanghai\landp
+ef poly
+sel $id = 51 or $id = 52 or $id = 53
+put d:\city\2000\shanghai-c
+q
+clean d:\city\2000\shanghai-c # 10 10
+arcedit
+edit k:\shanxi\landp
+ef poly
+sel $id = 51 or $id = 52 or $id = 53
+put d:\city\2000\shanxi-c
+q
+clean d:\city\2000\shanxi-c # 10 10
+arcedit
+edit k:\sichuan\landp
+ef poly
+sel $id = 51 or $id = 52 or $id = 53
+put d:\city\2000\sichuan-c
+q
+clean d:\city\2000\sichuan-c # 10 10
+arcedit
+edit k:\taiwan\landp
+ef poly
+sel $id = 51 or $id = 52 or $id = 53
+put d:\city\2000\taiwan-c
+q
+clean d:\city\2000\taiwan-c # 10 10
+arcedit
+edit k:\xinjiang\landp
+ef poly
+sel $id = 51 or $id = 52 or $id = 53
+put d:\city\2000\xinjiang-c
+q
+clean d:\city\2000\xinjiang-c # 10 10
+arcedit
+edit k:\xizang\landp
+ef poly
+sel $id = 51 or $id = 52 or $id = 53
+put d:\city\2000\xizang-c
+q
+clean d:\city\2000\xizang-c # 10 10
+arcedit
+edit k:\yunnan\landp
+ef poly
+sel $id = 51 or $id = 52 or $id = 53
+put d:\city\2000\yunnan-c
+q
+clean d:\city\2000\yunnan-c # 10 10
+arcedit
+edit k:\zhejiang\landp
+ef poly
+sel $id = 51 or $id = 52 or $id = 53
+put d:\city\2000\zhejiang-c
+q
+clean d:\city\2000\zhejiang-c # 10 10

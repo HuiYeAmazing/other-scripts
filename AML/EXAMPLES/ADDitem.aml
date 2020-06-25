@@ -1,0 +1,13 @@
+
+&do name &list LD232326 LD232330 LD232331 LD232332 LD232721 LD232722 LD232723
+
+
+additem %name%.pat %name%.pat TWO_ID 4 4 B 
+tables
+sel %name%.Pat
+cal TWO_ID = %name%-ID
+q
+
+&type Íê³É%name%
+&end
+
